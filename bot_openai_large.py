@@ -68,7 +68,7 @@ async def handle_message(update: Update, context: ContextTypes.DEFAULT_TYPE):
     """
     SEND_PROCESSING_MESSAGE = False
     user_message = update.message.text.strip()
-    bot_usernames = ["@jegueGPT", "@jeguegpt_bot"]
+    bot_usernames = ["@jeguegpt_bot","@jegueGPT", ]
 
     # Verifica se o bot foi mencionado
     if not any(username in user_message for username in bot_usernames):
