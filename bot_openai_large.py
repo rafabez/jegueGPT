@@ -67,10 +67,16 @@ async def handle_message(update: Update, context: ContextTypes.DEFAULT_TYPE):
     mantendo histórico de conversação.
     """
     SEND_PROCESSING_MESSAGE = False
+    user_message = update.message.text.strip()
+    bot_username = "jegueGPT"
+
+    # Verifica se o bot foi mencionado
+    if f"@{bot_username}" not in user_message:
+        return
+
     if SEND_PROCESSING_MESSAGE:
         await update.message.reply_text("Processando sua mensagem...")
     user_id = update.message.chat_id
-    user_message = update.message.text
 
     # Mantém histórico de mensagens
     conversation_history[user_id].append({"role": "user", "content": user_message})
@@ -84,7 +90,6 @@ async def handle_message(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
     # Envia a resposta ao grupo ou ao usuário
     await update.message.reply_text(api_response.strip())
-
 def main():
     """
     Configura e executa o segundo bot do Telegram para o modelo openai-large.
@@ -93,8 +98,8 @@ def main():
 
     # Configura aplicação do Telegram
     application = ApplicationBuilder().token(TELEGRAM_TOKEN).build()
-    bot_username = "@NovoBotOpenai"
-    mention_filter = filters.Regex(bot_username) | filters.TEXT & ~filters.COMMAND
+    bot_username = "@jegueGPT"
+    mention_filter = filters.Regex(bot_username)
     application.add_handler(MessageHandler(mention_filter, handle_message))
 
     print("O segundo bot para o modelo openai-large está funcionando...")
