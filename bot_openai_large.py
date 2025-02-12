@@ -98,7 +98,7 @@ def main():
 
     # Configura aplicação do Telegram
     application = ApplicationBuilder().token(TELEGRAM_TOKEN).build()
-    bot_username = "@jegueGPT"
+    bot_username = "@@jeguegpt_bot"
     mention_filter = filters.Regex(bot_username)
     application.add_handler(MessageHandler(mention_filter, handle_message))
 
