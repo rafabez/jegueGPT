@@ -41,7 +41,7 @@ def call_pollinations_api_post_openai(prompt: str, system: str = SYSTEM_PROMPT) 
                 {"role": "system", "content": system},
                 {"role": "user", "content": prompt},
             ],
-            "model": "llama",
+            "model": "openai",
             "jsonMode": True,
             "private": True,
         }
