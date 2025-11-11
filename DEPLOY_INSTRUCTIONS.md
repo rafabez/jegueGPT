@@ -1,5 +1,25 @@
 # Instruções de Deploy no Servidor
 
+## 0. Instalar Dependências (PRIMEIRO PASSO)
+
+### Opção 1: Usar o script de instalação (Recomendado)
+```bash
+cd /home/ubuntu/bots/jeguegpt
+chmod +x install.sh
+./install.sh
+```
+
+### Opção 2: Instalação manual
+```bash
+cd /home/ubuntu/bots/jeguegpt
+pip3 install -r requirements.txt --user
+```
+
+**IMPORTANTE:** Verifique se tudo foi instalado corretamente:
+```bash
+python3 -c "import telegram; print('OK')"
+```
+
 ## 1. Configurar o Serviço Systemd
 
 ### Passo 1: Editar o arquivo de serviço
