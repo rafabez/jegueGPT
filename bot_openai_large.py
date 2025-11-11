@@ -40,7 +40,7 @@ def call_pollinations(prompt: str) -> str:
         full_prompt = f"{SYSTEM_PROMPT}\n\nUser: {prompt}"
         encoded_prompt = urllib.parse.quote(full_prompt)
         base = f"https://text.pollinations.ai/{encoded_prompt}"
-        params = {"model": "openai", "referrer": "interzone.art.br"}
+        params = {"model": "deepseek", "referrer": "interzone.art.br"}
         
         logging.info(f"Chamando Pollinations API com prompt: {prompt[:50]}...")
         logging.debug(f"Full prompt: {full_prompt[:150]}...")
