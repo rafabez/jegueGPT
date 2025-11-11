@@ -40,7 +40,9 @@ conversation_history = defaultdict(list)
 
 def call_pollinations(prompt: str) -> str:
     try:
-        encoded_prompt = urllib.parse.quote(prompt)
+        # Combinar system prompt com a mensagem do usuário
+        full_prompt = f"{SYSTEM_PROMPT}\n\nUsuário: {prompt}\nJegueGPT:"
+        encoded_prompt = urllib.parse.quote(full_prompt)
         base = f"https://text.pollinations.ai/{encoded_prompt}"
         params = {"model": "openai", "referrer": "interzone.art.br"}
         
