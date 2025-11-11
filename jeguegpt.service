@@ -8,6 +8,8 @@ User=ubuntu
 WorkingDirectory=/home/ubuntu/bots/jeguegpt
 Environment="SECOND_TELEGRAM_TOKEN="
 ExecStart=/home/ubuntu/bots/jeguegpt/venv/bin/python /home/ubuntu/bots/jeguegpt/bot_openai_large.py
+# Se você tiver .venv ao invés de venv, use:
+# ExecStart=/home/ubuntu/bots/jeguegpt/.venv/bin/python /home/ubuntu/bots/jeguegpt/bot_openai_large.py
 Restart=always
 RestartSec=10
 StandardOutput=journal
