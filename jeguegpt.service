@@ -1,0 +1,18 @@
+[Unit]
+Description=JegueGPT Telegram Bot
+After=network.target
+
+[Service]
+Type=simple
+User=ubuntu
+WorkingDirectory=/home/ubuntu/bots/jeguegpt
+Environment="SECOND_TELEGRAM_TOKEN=YOUR_TOKEN_HERE"
+ExecStart=/usr/bin/python3 /home/ubuntu/bots/jeguegpt/bot_openai_large.py
+Restart=always
+RestartSec=10
+StandardOutput=journal
+StandardError=journal
+SyslogIdentifier=jeguegpt
+
+[Install]
+WantedBy=multi-user.target
