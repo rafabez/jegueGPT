@@ -4,26 +4,27 @@
 echo "=== JegueGPT Debug Script ==="
 echo ""
 
-# Verificar se já existe instância rodando
-RUNNING=$(ps aux | grep bot_openai_large.py | grep -v grep | wc -l)
+# Verificar se já existe instância do jeguegpt rodando
+RUNNING=$(ps aux | grep -E "jeguegpt.*bot_openai_large.py" | grep -v grep | wc -l)
 if [ "$RUNNING" -gt 0 ]; then
-    echo "⚠ AVISO: Detectada(s) $RUNNING instância(s) do bot já rodando!"
+    echo "⚠ AVISO: Detectada(s) $RUNNING instância(s) do jeguegpt já rodando!"
     echo ""
-    ps aux | grep bot_openai_large.py | grep -v grep
+    ps aux | grep -E "jeguegpt.*bot_openai_large.py" | grep -v grep
     echo ""
     echo "Isso causará erro 'Conflict: terminated by other getUpdates request'"
     echo ""
-    read -p "Deseja parar todas as instâncias e continuar? (s/N): " -n 1 -r
+    read -p "Deseja parar todas as instâncias do jeguegpt e continuar? (s/N): " -n 1 -r
     echo ""
     if [[ $REPLY =~ ^[SsYy]$ ]]; then
         echo "Parando serviço systemd (se existir)..."
         sudo systemctl stop jeguegpt 2>/dev/null
-        echo "Matando processos..."
-        pkill -f bot_openai_large.py
+        echo "Matando processos do jeguegpt..."
+        pkill -f "jeguegpt.*bot_openai_large.py"
         sleep 2
-        echo "✓ Instâncias anteriores paradas"
+        echo "✓ Instâncias anteriores do jeguegpt paradas"
     else
         echo "Abortando. Pare as instâncias manualmente primeiro."
+        echo "Use: chmod +x stop_all.sh && ./stop_all.sh"
         exit 1
     fi
     echo ""
