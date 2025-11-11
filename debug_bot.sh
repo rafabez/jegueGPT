@@ -4,6 +4,31 @@
 echo "=== JegueGPT Debug Script ==="
 echo ""
 
+# Verificar se já existe instância rodando
+RUNNING=$(ps aux | grep bot_openai_large.py | grep -v grep | wc -l)
+if [ "$RUNNING" -gt 0 ]; then
+    echo "⚠ AVISO: Detectada(s) $RUNNING instância(s) do bot já rodando!"
+    echo ""
+    ps aux | grep bot_openai_large.py | grep -v grep
+    echo ""
+    echo "Isso causará erro 'Conflict: terminated by other getUpdates request'"
+    echo ""
+    read -p "Deseja parar todas as instâncias e continuar? (s/N): " -n 1 -r
+    echo ""
+    if [[ $REPLY =~ ^[SsYy]$ ]]; then
+        echo "Parando serviço systemd (se existir)..."
+        sudo systemctl stop jeguegpt 2>/dev/null
+        echo "Matando processos..."
+        pkill -f bot_openai_large.py
+        sleep 2
+        echo "✓ Instâncias anteriores paradas"
+    else
+        echo "Abortando. Pare as instâncias manualmente primeiro."
+        exit 1
+    fi
+    echo ""
+fi
+
 # Ativar venv se existir
 if [ -d "venv" ]; then
     echo "✓ Ativando virtual environment..."

@@ -120,6 +120,33 @@ ps aux | grep bot_openai_large
 ### Problema: "Unit jeguegpt.service not found"
 **Solução:** O serviço não foi instalado. Siga os passos 1 e 2 acima.
 
+### Problema: "Conflict: terminated by other getUpdates request"
+**Causa:** Múltiplas instâncias do bot rodando ao mesmo tempo.
+
+**Solução:**
+1. Verificar instâncias rodando:
+   ```bash
+   chmod +x check_instances.sh
+   ./check_instances.sh
+   ```
+
+2. Parar todas as instâncias:
+   ```bash
+   sudo systemctl stop jeguegpt
+   pkill -f bot_openai_large.py
+   ```
+
+3. Iniciar apenas UMA instância:
+   ```bash
+   # Opção A: Via systemd (produção)
+   sudo systemctl start jeguegpt
+   
+   # Opção B: Manual (debug)
+   ./debug_bot.sh
+   ```
+
+**IMPORTANTE:** O Telegram só permite uma conexão por bot. Nunca rode o bot manualmente E via systemd ao mesmo tempo!
+
 ### Problema: Bot responde "aff...travei aqui"
 **Causa:** A API Pollinations está retornando erro.
 
