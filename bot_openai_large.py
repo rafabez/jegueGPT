@@ -40,17 +40,14 @@ conversation_history = defaultdict(list)
 
 def call_pollinations(prompt: str) -> str:
     try:
-        encoded_prompt = urllib.parse.quote(prompt)
+        # Combinar system prompt com mensagem do usuário na URL
+        full_prompt = f"{SYSTEM_PROMPT}\n\n{prompt}"
+        encoded_prompt = urllib.parse.quote(full_prompt)
         base = f"https://text.pollinations.ai/{encoded_prompt}"
-        params = {
-            "model": "openai",
-            "system": SYSTEM_PROMPT,
-            "referrer": "interzone.art.br"
-        }
+        params = {"model": "openai", "referrer": "interzone.art.br"}
         
         logging.info(f"Chamando Pollinations API com prompt: {prompt[:50]}...")
-        logging.debug(f"URL completa: {base}")
-        logging.debug(f"System prompt: {SYSTEM_PROMPT}")
+        logging.debug(f"Full prompt com system: {full_prompt[:100]}...")
         
         r = requests.get(base, params=params, timeout=60)
         
