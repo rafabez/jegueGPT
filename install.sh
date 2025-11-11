@@ -22,7 +22,13 @@ echo ""
 
 # Instalar dependências
 echo "Instalando dependências do requirements.txt..."
-pip3 install -r requirements.txt --user
+echo "Tentando instalação com --user..."
+if pip3 install -r requirements.txt --user 2>/dev/null; then
+    echo "✓ Instalação com --user bem-sucedida"
+else
+    echo "Instalação com --user falhou. Tentando com --break-system-packages..."
+    pip3 install -r requirements.txt --break-system-packages
+fi
 echo ""
 
 # Verificar instalação

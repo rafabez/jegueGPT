@@ -4,6 +4,13 @@
 echo "=== JegueGPT Debug Script ==="
 echo ""
 
+# Ativar venv se existir
+if [ -d "venv" ]; then
+    echo "✓ Ativando virtual environment..."
+    source venv/bin/activate
+    echo ""
+fi
+
 # Verificar se o token está configurado
 if [ -z "$SECOND_TELEGRAM_TOKEN" ]; then
     echo "❌ ERRO: Variável SECOND_TELEGRAM_TOKEN não está configurada!"

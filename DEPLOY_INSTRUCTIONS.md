@@ -2,21 +2,33 @@
 
 ## 0. Instalar Dependências (PRIMEIRO PASSO)
 
-### Opção 1: Usar o script de instalação (Recomendado)
+### Opção 1: Virtual Environment (RECOMENDADO - melhor prática)
+```bash
+cd /home/ubuntu/bots/jeguegpt
+chmod +x install_venv.sh
+./install_venv.sh
+```
+
+### Opção 2: Instalação global com --break-system-packages
 ```bash
 cd /home/ubuntu/bots/jeguegpt
 chmod +x install.sh
 ./install.sh
 ```
 
-### Opção 2: Instalação manual
+### Opção 3: Instalação manual
 ```bash
 cd /home/ubuntu/bots/jeguegpt
-pip3 install -r requirements.txt --user
+pip3 install -r requirements.txt --break-system-packages
 ```
 
 **IMPORTANTE:** Verifique se tudo foi instalado corretamente:
 ```bash
+# Se usou venv:
+source venv/bin/activate
+python -c "import telegram; print('OK')"
+
+# Se usou instalação global:
 python3 -c "import telegram; print('OK')"
 ```
 
